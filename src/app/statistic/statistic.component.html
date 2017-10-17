@@ -1,0 +1,9 @@
+<div class="statistic ui-g" [style.background-color]="colour">
+  <div class="ui-g-5 icon" *ngIf="icon">
+    <i class="fa {{icon}}"></i>
+  </div>
+  <div class="ui-g-7">
+    <div class="value">{{value}}</div>
+    <div class="label" *ngIf="label">{{label}}</div>
+  </div>
+</div>

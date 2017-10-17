@@ -1,0 +1,25 @@
+<p-dataTable #dt [lazy]="true" (onLazyLoad)="loadTimes($event)" paginator="true" rows="5" [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="8" [contextMenu]="tableContextMenu" class="ui-g-12" (onRowSelect)="onRowSelect($event)" [(selection)]="selectedRow" (onEditComplete)="onEditComplete($event)"
+  [reorderableColumns]="true" columnResizeMode="fit" resizableColumns="true" emptyMessage="No time entries found" sortField="startTime"
+  sortOrder="1" [value]="allTimesheetData" exportFilename="users" [editable]="true" [globalFilter]="tableSearch">
+  <!-- [scrollable]="true" scrollHeight="400px" -->
+  <p-column selectionMode="multiple" styleClass="selectBoxColumn"></p-column>
+  <p-column field="user" [editable]="true" [sortable]="true" header="User"></p-column>
+  <p-column field="project" [editable]="true" [sortable]="true" filterMatchMode="equal" [style]="{'overfloww':'visible'}" filter="true"
+    filterPlaceholder="Type a Project" header="Project">
+    <ng-template pTemplate="filter" let-col>
+      <p-dropdown [options]="allProjects" [style]="{'width':'100%'}" styleClass="ui-column-filter" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"></p-dropdown>
+    </ng-template>
+    <ng-template pTemplate="editor" let-col let-project="rowData">
+      <p-dropdown [options]="allProjects" [autoWidth]="false" [style]="{'width':'100%'}" required="true"></p-dropdown>
+    </ng-template>
+  </p-column>
+  <p-column field="category" [sortable]="true" header="Category"></p-column>
+  <p-column field="startTime" [sortable]="true" header="Start Time"></p-column>
+  <p-column field="endTime" [sortable]="true" header="End Time"></p-column>
+  <p-footer>
+    <label for="tableSearch">Search</label>
+    <input type="text" id="tableSearch" placeholder="Search all the things" #tableSearch>
+    <button type="button" pButton (click)="dt.exportCSV()" icon="fa-table" label="Export" style="float:right;"></button>
+  </p-footer>
+</p-dataTable>
+<p-contextMenu [model]="contextMenu" #tableContextMenu></p-contextMenu>

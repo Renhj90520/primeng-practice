@@ -1,0 +1,17 @@
+p-datatable>>>.ui-datatable-footer {
+  min-height: 60px;
+}
+
+p-datatable>>>.ui-datatable-footer input {
+  margin-left: .5em;
+  font-size: large;
+  padding: 3px;
+}
+
+p-datatable>>>.selectBoxColumn {
+  width: 43px;
+}
+
+p-contextMenu>>>.ui-menuitem-active a {
+  background: #f15b2a !important;
+}

@@ -1,0 +1,53 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="ui-g">
+  <p-panel header="Add Project" class="ui-g-12">
+    <div class="ui-g">
+      <label for="projectId" class="ui-g-12 ui-md-2">Project Id*</label>
+      <p-inputMask class="ui-g-12 ui-md-5" mask="aaa-999" slotChar="?" formControlName="projectId" placeholder="AAA-123"></p-inputMask>
+      <div class="ui-g-12 ui-md-5">
+        <app-fielderrors [form]="projectForm" fieldName="projectId" niceName="Project Id"></app-fielderrors>
+      </div>
+    </div>
+    <div class="ui-g">
+      <label for="description" class="ui-g-12">Description</label>
+      <!-- <textarea id="description" cols="30" rows="10" class="ui-g-12" pInputTextarea formControlName="description"></textarea> -->
+      <p-editor class="ui-g-12" id="description" formControlName="description" [style]="{'height':'200px'}"></p-editor>
+      <div class="ui-g-12">
+        <app-fielderrors fieldName="description" niceName="Description" [form]="projectForm"></app-fielderrors>
+      </div>
+    </div>
+    <div class="ui-g">
+      <label for="startDate" class="ui-g-12 ui-md-2">Start Date</label>
+      <p-calendar id="startDate" fromControlName="startDate" [minDate]="minProjectDate" dataFormat="dd/mm/yy" [showIcon]="true"
+        class="ui-g-12 ui-md-5"></p-calendar>
+      <div class="ui-g-12 ui-md-5">
+        <app-fielderrors fieldName="startDate" niceName="Start Date" [form]="projectForm"></app-fielderrors>
+      </div>
+    </div>
+    <div class="ui-g">
+      <p-fieldset class="ui-g-12" [toggleable]="true" [collapsed]="false" legend="Project Type">
+        <p-radioButton name="projGroup" label="Front End" value="F" formControlName="projectType"></p-radioButton>
+        <p-radioButton name="projGroup" label="Backed End" value="B" formControlName="projectType"></p-radioButton>
+        <p-radioButton name="projGroup" label="Operations" value="O" formControlName="projectType"></p-radioButton>
+      </p-fieldset>
+    </div>
+    <div class="ui-g">
+      <label for="devs" class="ui-g-12 ui-md-2">Assigned Devs</label>
+      <!-- <p-dropdown id="devs" formControlName="selectedDev" filter="true" class="ui-g-12 ui-md-2" [options]="allDevs"></p-dropdown> -->
+      <!-- <p-multiSelect defaultLabel="select a Dev or two" id="devs" formControlName="selectedDev" filter="true" class="ui-g-12 ui-md-2" [options]="allDevs"></p-multiSelect> -->
+      <p-listbox id="devs" [filter]="true" formControlName="selectedDev" [multiple]="true" [options]="allDevs">
+        <ng-template let-dev pTemplate="item">
+          <img src="http://i.pravatar.cc/100?u={{dev.label}}" class="avatar">
+          <span class="devName">{{dev.value}}</span>
+        </ng-template>
+      </p-listbox>
+    </div>
+    <div class="ui-g">
+      <label for="rating" class="ui-g-12 ui-md-2">Project Coolness</label>
+      <!-- <p-spinner id="rating" formControlName="rating" [min]="0" [max]="5" class="ui-g-12 ui-md-10"></p-spinner> -->
+      <!-- <p-slider class="ui-g-12 ui-md-5" id="rating" formControlName="rating" [min]="0" [max]="5"></p-slider> -->
+      <p-rating class="ui-g-12 ui-md-5" id="rating" [cancel]="false" formControlName="rating"></p-rating>
+      <pre class="ui-g-12 ui-md-5">{{projectForm.getRawValue()|json}}</pre>
+    </div>
+    <button type="submit" pButton label="Save" icon="fa-floppy-o" [disabled]="hasErrors()"></button>
+  </p-panel>
+</form>

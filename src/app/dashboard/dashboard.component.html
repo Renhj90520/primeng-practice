@@ -1,0 +1,30 @@
+<div class="ui-g">
+  <app-statistic icon="fa-clock-o" label="My Hours" value="132" colour="#00ACAC" class="ui-g-12 ui-md-6 ui-lg-3"></app-statistic>
+  <app-statistic icon="fa-clock-o" label="My Hours" value="132" colour="#00ACAC" class="ui-g-12 ui-md-6 ui-lg-3"></app-statistic>
+  <app-statistic icon="fa-clock-o" label="My Hours" value="132" colour="#00ACAC" class="ui-g-12 ui-md-6 ui-lg-3"></app-statistic>
+  <app-statistic icon="fa-clock-o" label="My Hours" value="132" colour="#00ACAC" class="ui-g-12 ui-md-6 ui-lg-3"></app-statistic>
+</div>
+<div class="ui-g">
+  <p-panel header="Hours By Project (pie)" class="ui-g-12 ui-md-6">
+    <p-chart type="pie" [data]="hoursByProjectChartData" [options]="chartOptions"> </p-chart>
+  </p-panel>
+  <p-panel header="Hours By Project (doughnut)" class="ui-g-12 ui-md-6">
+    <p-chart type="doughnut" [data]="hoursByProjectChartData"></p-chart>
+  </p-panel>
+</div>
+<div class="ui-g">
+  <p-panel header="Hours By Team (bar)" class="ui-g-12 ui-md-6">
+    <p-chart type="bar" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+  <p-panel class="ui-g-12 ui-md-6" header="Hours By Team (line)">
+    <p-chart type="line" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+</div>
+<div class="ui-g">
+  <p-panel class="ui-g-12 ui-md-6" header="Hours By Team (radar)">
+    <p-chart type="radar" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+  <p-panel header="Hours By Team (mixed)" class="ui-g-12 ui-md-6">
+    <p-chart type="bar" (onDataSelect)="onDataSelect($event)" [data]="hoursByTeamChartDataMixed" #mixedChart></p-chart>
+  </p-panel>
+</div>

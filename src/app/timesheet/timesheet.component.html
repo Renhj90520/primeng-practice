@@ -1,0 +1,50 @@
+<div class="timesheet header ui-g-12">
+  <h2>{{day}}</h2>
+  <h3>{{dateAndMonth}}</h3>
+</div>
+<p-tabView class="ui-g-12 tabs" (onChange)="onChangeTabs($event)">
+  <p-tabPanel *ngFor="let tab of daysOfWeek" header="{{tab}}">
+    <p-dataTable [value]="getTimesForDay(tab)" class="timesheet-grid">
+      <p-column field="project" header="Project"></p-column>
+      <p-column field="category" header="Category"></p-column>
+      <p-column field="startTime" header="Start Time"></p-column>
+      <p-column field="endTime" header="End Time"></p-column>
+    </p-dataTable>
+  </p-tabPanel>
+</p-tabView>
+<button pButton (click)="displayEditDialog=true" label="Add Time Entry"></button>
+
+<p-dialog header="Create Time" [ngSwitch]="dialogPageIndex" width="700" height="500" [modal]="true" [(visible)]="displayEditDialog">
+  <p-steps [model]="dialogPages" [readonly]="false" [(activeIndex)]="dialogPageIndex"></p-steps>
+  <div *ngSwitchCase="PageNames.TimePage">
+    <p-schedule [events]="events" [header]="headerConfig" styleClass="calendar" defaultView="agendaWeek" [editable]="true" [nowIndicator]="ture"
+      [allDaySlot]="false"></p-schedule>
+  </div>
+  <div *ngSwitchCase="PageNames.ProjectPage">
+    <p-tree [value]="projectsTree" layout="horizontal" selectionMode="single" (selection)="selectedProject"></p-tree>
+  </div>
+  <div *ngSwitchCase=" PageNames.PlacePage ">
+    Our place page goes here.
+  </div>
+  <div *ngSwitchCase="PageNames.PeoplePage ">
+    <p-dataGrid [value]="people" [paginator]="true" [rows]="4">
+      <ng-template let-person pTemplate="item">
+        <p-panel class="ui-g-12 ui-md-3" header="{{person.firstName}} {{person.lastName}}">
+          <img [src]="person.avatar" [pTooltip]="person.email" tooltipPosition="bottom">
+        </p-panel>
+      </ng-template>
+    </p-dataGrid>
+  </div>
+  <p-footer>
+    <button pButton (click)="cancelDialog() " icon="fa-times " label="Cancel" class="ui-button-secondary "></button>
+    <button pButton (click)="saveNewEntry() " label="Save " icon="fa-check "></button>
+  </p-footer>
+</p-dialog>
+<p-confirmDialog #confirmDialog header="Cancel Time Creation" icon="fa fa-question-circle" width="425" [visible]="false"
+  message="Are you sure?">
+  <p-footer>
+    <button type="button" pButton (click)="confirmDialog.reject()" icon="fa-close" label="No, go back"></button>
+    <button type="button" pButton (click)="confirmDialog.accept() && confirmDialog.hide()" icon="fa-check" label="Yes, lose changes"></button>
+  </p-footer>
+</p-confirmDialog>
+<p-growl [value]="messages"></p-growl>

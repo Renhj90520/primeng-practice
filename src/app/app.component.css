@@ -1,0 +1,49 @@
+#header {
+  background-color: #F0F3F5;
+  position: fixed;
+  height: 60px;
+  top: 0;
+  left: 0;
+  z-index: 666;
+  width: 100%;
+}
+
+#top-logo {
+  height: 60px;
+}
+
+#sidenav,
+#sidenav-mini {
+  height: 100%;
+  position: fixed;
+  top: 60px;
+  padding-left: 0;
+  padding-top: 1em;
+  background: #2d353c !important;
+}
+
+#minigutter {
+  display: none;
+}
+
+#content-body {
+  padding-top: 55px;
+}
+
+@media only screen and (max-width:1000px) {
+  #sidegutter {
+    display: none;
+  }
+  #minigutter {
+    display: block;
+  }
+}
+
+@media only screen and (max-width:400px) {
+  #sidegutter {
+    display: none;
+  }
+  #minigutter {
+    display: block;
+  }
+}
